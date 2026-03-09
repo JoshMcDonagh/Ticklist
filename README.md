@@ -1,2 +1,2 @@
 # Ticklist
-A lightweight Python program that allows for easily and quickly noting down, checking, and marking as complete tasks.
+A lightweight Python program that allows for easily organising tasks, including task recording, checking, and marking as complete. 
