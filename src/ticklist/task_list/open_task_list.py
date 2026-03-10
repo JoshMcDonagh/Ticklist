@@ -1,8 +1,8 @@
 import pandas as pd
 
 from src.config.paths import OPEN_TASKS_JSON
-from src.ticklist.schemas import create_open_task_list_schema_dict, TASK_NO_LABEL
-from src.ticklist.list.task_list import TaskList
+from src.ticklist.task_list import TaskList
+from src.ticklist.schemas import create_open_task_list_schema_dict
 from src.ticklist.task import Task
 
 
@@ -27,3 +27,8 @@ class OpenTaskList(TaskList):
             super()._tasks_dataframe = tasks_dataframe
         else:
             raise ValueError("Task list does not follow the expected schema after adding task.")
+
+    def _get_formatted_dataframe(self, tasks_dataframe: pd.DataFrame) -> pd.DataFrame:
+        # TODO: Implement
+        pass
+

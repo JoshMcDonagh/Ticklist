@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 import pandas as pd
+from tabulate import tabulate
 
 from src.ticklist.schemas import TASK_NO_LABEL
 from src.ticklist.task import Task
@@ -58,7 +59,7 @@ class TaskList(ABC):
             raise RuntimeError("Task list has not been loaded.")
 
     def remove_task(self, task_no: str) -> None:
-        tasks_dataframe: pd.DataFrame = self._tasks_dataframe
+        tasks_dataframe = self._tasks_dataframe
         tasks_dataframe = tasks_dataframe[tasks_dataframe[TASK_NO_LABEL] != task_no]
 
         if self._does_dataframe_follow_schema(tasks_dataframe):
@@ -69,3 +70,15 @@ class TaskList(ABC):
     @abstractmethod
     def add_task(self, task: Task) -> None:
         pass
+
+    @abstractmethod
+    def _get_formatted_dataframe(self, tasks_dataframe: pd.DataFrame) -> pd.DataFrame:
+        pass
+
+    def print(self) -> None:
+        formatted_dataframe = self._get_formatted_dataframe(self._tasks_dataframe)
+        print(tabulate(
+            formatted_dataframe,
+            tablefmt="rounded_outline",
+            showindex=False
+        ))
