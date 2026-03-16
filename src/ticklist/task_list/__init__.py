@@ -71,6 +71,9 @@ class TaskList(ABC):
         else:
             raise ValueError("Task list does not follow the expected schema after removing task.")
 
+    def is_exists(self, task_no: str) -> bool:
+        return self._tasks_dataframe[TASK_NO_LABEL].eq(task_no).any()
+
     @abstractmethod
     def add_task(self, task: Task) -> None:
         pass
