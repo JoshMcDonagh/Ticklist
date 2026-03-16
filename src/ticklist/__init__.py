@@ -1,8 +1,8 @@
 from src.ticklist.task_list.closed_task_list import ClosedTaskList
 from src.ticklist.task_list.open_task_list import OpenTaskList
 
-_open_task_list:OpenTaskList | None = None
-_closed_task_list:ClosedTaskList | None = None
+_open_task_list: OpenTaskList | None = None
+_closed_task_list: ClosedTaskList | None = None
 
 
 def get_open_task_list() -> OpenTaskList:

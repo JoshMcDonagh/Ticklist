@@ -23,6 +23,10 @@ class TaskList(ABC):
     def is_loaded(self) -> bool:
         return self._tasks_dataframe is not None
 
+    @property
+    def num_of_tasks(self) -> int:
+        return self._tasks_dataframe.shape[0]
+
     def _does_dataframe_follow_schema(self, dataframe: pd.DataFrame) -> bool:
         schema = self._dataframe_schema
 
