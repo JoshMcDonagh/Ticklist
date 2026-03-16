@@ -29,6 +29,10 @@ class ClosedTaskList(TaskList):
         else:
             raise ValueError("Task list does not follow the expected schema after adding task.")
 
+    def get_task(self, task_no: str) -> Task:
+        # TODO: Implement
+        pass
+
     def _get_formatted_dataframe(self, tasks_dataframe: pd.DataFrame) -> pd.DataFrame:
         # TODO: Implement
         pass

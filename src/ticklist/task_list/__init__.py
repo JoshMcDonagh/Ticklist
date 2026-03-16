@@ -76,6 +76,10 @@ class TaskList(ABC):
         pass
 
     @abstractmethod
+    def get_task(self, task_no: str) -> Task:
+        pass
+
+    @abstractmethod
     def _get_formatted_dataframe(self, tasks_dataframe: pd.DataFrame) -> pd.DataFrame:
         pass
 
