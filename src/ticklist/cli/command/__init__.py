@@ -2,11 +2,38 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Dict, List, Any
 
+from src.ticklist.cli.command.add import Add
+from src.ticklist.cli.command.remove import Remove
+from src.ticklist.cli.command.tick import Tick
+
+_AVAILABLE_COMMANDS: Dict[str, Command] | None = None
+
+def _make_command_dict(commands: List[Command]) -> Dict[str, Command]:
+    command_dict = {}
+    for command in commands:
+        command_dict[command.name] = command
+    return command_dict
+
+
+def get_command(command_name: str) -> Command:
+    global _AVAILABLE_COMMANDS
+
+    if _AVAILABLE_COMMANDS is None:
+        _AVAILABLE_COMMANDS = _make_command_dict([
+            Add(),
+            Remove(),
+            Tick()
+        ])
+
+    return _AVAILABLE_COMMANDS[command_name]
+
+
 @dataclass
 class MandatoryArgument:
     name: str
     type: type
     value: Any | None = None
+
 
 @dataclass
 class OptionalArgument:
