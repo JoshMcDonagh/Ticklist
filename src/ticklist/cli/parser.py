@@ -1,10 +1,15 @@
+import argparse
 import shlex
 from typing import Dict, List, Any, Tuple
 
 from src.ticklist.cli.command import Command
 
+_parser = argparse.ArgumentParser()
 
-class TaskListParser:
+
+
+
+class Parser:
     def __init__(self):
         self._commands: Dict[str, Command] = {}
 
@@ -28,7 +33,7 @@ class TaskListParser:
 
         # --- Parse mandatory arguments ---
 
-        expected_mandatory_args: List[type] = command.expected_mandatory_args
+        expected_mandatory_args: List[type] = command.mandatory_args
         mandatory_args: List[Any] = []
         for expected_arg_type in expected_mandatory_args:
             if not args:
@@ -47,7 +52,7 @@ class TaskListParser:
 
         arg_pairs = zip(args[::2], args[1::2])
 
-        expected_optional_args: Dict[str, type] = command.expected_optional_args
+        expected_optional_args: Dict[str, type] = command.optional_args
         optional_args: Dict[str, Any] = {}
         for arg_tag, arg_val in arg_pairs:
             if arg_tag not in expected_optional_args:
