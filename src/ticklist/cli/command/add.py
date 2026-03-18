@@ -20,20 +20,6 @@ class Add(Command):
     def description(self) -> str:
         return "Adds task to open task list"
 
-    @staticmethod
-    def _make_arg_dict(
-            args: List[MandatoryArgument | OptionalArgument]
-    ) -> Dict[str, MandatoryArgument | OptionalArgument]:
-        arg_dict = {}
-        for arg in args:
-            if arg is MandatoryArgument:
-                arg_dict[arg.name] = arg
-            elif arg is OptionalArgument:
-                arg_dict[arg.short_tag] = arg
-            else:
-                raise ValueError("Argument must be Mandatory or Optional")
-        return arg_dict
-
     @property
     def mandatory_args(self) -> Dict[str, MandatoryArgument]:
         mandatory_args: List[MandatoryArgument] = [MandatoryArgument(

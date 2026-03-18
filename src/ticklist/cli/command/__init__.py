@@ -31,18 +31,32 @@ class Command(ABC):
 
     @property
     @abstractmethod
-    def mandatory_args(self) -> List[MandatoryArgument]:
+    def mandatory_args(self) -> Dict[str, MandatoryArgument]:
         pass
 
     @property
     @abstractmethod
-    def optional_args(self) -> List[OptionalArgument]:
+    def optional_args(self) -> Dict[str, OptionalArgument]:
         pass
 
     @abstractmethod
     def execute(
             self,
-            actual_mandatory_args: List[MandatoryArgument],
-            actual_optional_args: List[OptionalArgument]
+            actual_mandatory_args: Dict[str, MandatoryArgument],
+            actual_optional_args: Dict[str, OptionalArgument]
     ) -> None:
         pass
+
+    @staticmethod
+    def _make_arg_dict(
+            args: List[MandatoryArgument | OptionalArgument]
+    ) -> Dict[str, MandatoryArgument | OptionalArgument]:
+        arg_dict = {}
+        for arg in args:
+            if arg is MandatoryArgument:
+                arg_dict[arg.name] = arg
+            elif arg is OptionalArgument:
+                arg_dict[arg.short_tag] = arg
+            else:
+                raise ValueError("Argument must be Mandatory or Optional")
+        return arg_dict
